@@ -1,0 +1,13 @@
+{
+  "lastChangelogVersion": "1.5.2",
+  "enabledModels": [
+    "litellm/deepseek-v4.1-flash-1017-uncensored",
+    "litellm/qwen3.5-397b-a17b",
+    "litellm/glm-5.3-flash",
+    "litellm/deepseek-v4.1-flash-uncensored-fp8",
+    "litellm/kimi-k2.6",
+    "litellm/kimi-k3.1-pro:free"
+  ],
+  "defaultProvider": "litellm",
+  "defaultModel": "kimi-k3.1-pro:free"
+}

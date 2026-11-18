@@ -1,0 +1,65 @@
+model_list:
+  - model_name: glm-5.3-flash
+    litellm_params:
+      model: openai/glm-5.3-flash          # "openai/" = OpenAI-kompatibler Endpunkt
+      api_base: https://code.myai.swisscom.ch/v1
+      api_key: os.environ/SWISSCOM_MYAI_API_KEY
+      rpm: 120
+      tpm: 400000
+
+  - model_name: qwen3.5-397b-a17b
+    litellm_params:
+      model: openai/qwen3.5-397b-a17b
+      api_base: https://code.myai.swisscom.ch/v1
+      api_key: os.environ/SWISSCOM_MYAI_API_KEY
+      rpm: 120
+      tpm: 400000
+
+  - model_name: deepseek-v4.1-flash-1017-uncensored
+    litellm_params:
+      model: openai/dealignai/deepseek-v4.1-flash-1017-uncensored
+      api_base: https://api.numes.ai/api/v1
+      api_key: os.environ/NUMES_API_KEY
+      rpm: 120
+      tpm: 400000
+
+  - model_name: deepseek-v4.1-flash-uncensored-fp8
+    litellm_params:
+      model: openai/dealignai/deepseek-v4.1-flash-uncensored-fp8
+      api_base: https://api.numes.ai/api/v1
+      api_key: os.environ/NUMES_API_KEY
+      rpm: 120
+      tpm: 400000
+
+  - model_name: kimi-k2.6
+    litellm_params:
+      model: openai/moonshotai/kimi-k2.6
+      api_base: https://api.numes.ai/api/v1
+      api_key: os.environ/NUMES_API_KEY
+      rpm: 120
+      tpm: 400000
+
+  - model_name: kimi-k3.1-pro:free
+    litellm_params:
+      model: openai/moonshotai/kimi-k3.1-pro:free
+      api_base: https://api.numes.ai/api/v1
+      api_key: os.environ/NUMES_API_KEY
+      rpm: 120
+      tpm: 400000
+
+  # Weitere Provider, Beispiel (Modellnamen anpassen):
+  # - model_name: claude-sonnet
+  #   litellm_params:
+  #     model: anthropic/<modellname>
+  #     api_key: os.environ/ANTHROPIC_API_KEY
+
+litellm_settings:
+  drop_params: true        # unbekannte Parameter weglassen statt Fehler
+  telemetry: false
+
+general_settings:
+  master_key: os.environ/LITELLM_MASTER_KEY
+  max_budget: 25           # globale Notbremse in USD (30d) - greift auch bei geleaktem Key
+  budget_duration: 30d
+  disable_admin_ui: true
+
