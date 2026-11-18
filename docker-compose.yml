@@ -50,6 +50,8 @@ services:
     depends_on:
       litellm:
         condition: service_healthy
+      proxy:
+        condition: service_started
     stdin_open: true
     tty: true
     working_dir: /workspace
@@ -61,6 +63,15 @@ services:
       # Nach scripts/make-pi-key.sh + Eintrag in .env: docker compose up -d --force-recreate pi
       - LITELLM_PROXY_TOKEN=${LITELLM_PROXY_TOKEN:-${LITELLM_MASTER_KEY:?LITELLM_MASTER_KEY oder LITELLM_PROXY_TOKEN in .env setzen}}
       - HOME=/home/node
+      - HTTP_PROXY=http://proxy:3128
+      - HTTPS_PROXY=http://proxy:3128
+      - http_proxy=http://proxy:3128
+      - https_proxy=http://proxy:3128
+      # litellm MUSS am Proxy vorbei, sonst läuft der interne Traffic darüber:
+      - NO_PROXY=litellm,localhost,127.0.0.1
+      - no_proxy=litellm,localhost,127.0.0.1
+      # Node.js (pi) beachtet Proxy-Variablen nicht von allein:
+      - NODE_USE_ENV_PROXY=1
     volumes:
       - ${WORKSPACE:-.}:/workspace
       # pi-config liegt jetzt im Home des unprivilegierten Users
@@ -77,6 +88,32 @@ services:
       - /home/node/.config
     pids_limit: 512
     mem_limit: 4g
+    logging: *default-logging
+
+  proxy:
+    image: ubuntu/squid:6.6-24.04_edge   # konkrete Version pinnen, Tag ggf. anpassen
+    restart: unless-stopped
+    volumes:
+      - ./proxy/squid.conf:/etc/squid/squid.conf:ro
+      - ./proxy/allowed_domains.txt:/etc/squid/allowed_domains.txt:ro
+    networks: [internal, egress]
+    cap_drop: [ALL]
+    cap_add:
+      - CHOWN
+      - SETUID
+      - SETGID
+      - DAC_OVERRIDE
+      - FOWNER
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
+    tmpfs:
+      - /var/spool/squid:uid=13,gid=13,mode=0755
+      - /var/log/squid:uid=13,gid=13,mode=0755
+      - /var/run:uid=13,gid=13,mode=0755
+      - /tmp:mode=1777
+    pids_limit: 128
+    mem_limit: 512m
     logging: *default-logging
 
 
