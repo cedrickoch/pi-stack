@@ -9,5 +9,11 @@
     "litellm/kimi-k3.1-pro:free"
   ],
   "defaultProvider": "litellm",
-  "defaultModel": "kimi-k3.1-pro:free"
+  "defaultModel": "kimi-k3.1-pro:free",
+  "packages": [
+    "/opt/pi-packages/node_modules/pi-web-access"
+  ],
+  "extensionChangelogVersions": {
+    "{\"source\":\"/opt/pi-packages/node_modules/pi-web-access\",\"scope\":\"user\"}": "0.48.0"
+  }
 }

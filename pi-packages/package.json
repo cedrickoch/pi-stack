@@ -1,0 +1,8 @@
+{
+  "name": "pi-packages",
+  "private": true,
+  "dependencies": {
+    "pi-web-access": ""
+  }
+}
+

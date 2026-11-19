@@ -1,2 +1,8 @@
 .github.com
 .pi.dev
+.duckduckgo.com
+.google.com
+.wikipedia.org
+.stackexchange.com
+.brave.com
+.bing.com
