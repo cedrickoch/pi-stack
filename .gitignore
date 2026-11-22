@@ -1,0 +1,10 @@
+# Agent-State: Sessions enthalten echte Dateiinhalte & Tool-Output
+pi-config/sessions/
+pi-config/auth.json
+pi-config/models-store.json
+pi-config/*debug*.log
+
+# Secrets
+.env
+.env.*
+!.env.example

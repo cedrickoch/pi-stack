@@ -56,6 +56,14 @@
           "input": ["text"], 
           "contextWindow": 1048576,
           "maxTokens": 65536
+        },
+        { 
+          "id": "claude-opus-5.5",
+          "name": "Claude Opus 5.5 (via Proxy)", 
+          "reasoning": false,
+          "input": ["text"], 
+          "contextWindow": 1000000,
+          "maxTokens": 128000
         }
       ]
     }

@@ -47,6 +47,14 @@ model_list:
       rpm: 120
       tpm: 400000
 
+  - model_name: claude-opus-5.5
+    litellm_params:
+      model: openai/anthropic/claude-opus-5.5
+      api_base: https://api.numes.ai/api/v1
+      api_key: os.environ/NUMES_API_KEY
+      rpm: 120
+      tpm: 400000
+
   # Weitere Provider, Beispiel (Modellnamen anpassen):
   # - model_name: claude-sonnet
   #   litellm_params:

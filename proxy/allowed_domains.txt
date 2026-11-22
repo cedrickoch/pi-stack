@@ -6,3 +6,4 @@
 .stackexchange.com
 .brave.com
 .bing.com
+.githubusercontent.com
