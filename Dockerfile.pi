@@ -5,8 +5,23 @@ ARG PI_VERSION=1.5.2
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
       bash curl ca-certificates git ripgrep fd-find \
+      python3.11 python3.11-venv \
  && ln -s "$(which fdfind)" /usr/local/bin/fd \
  && rm -rf /var/lib/apt/lists/*
+
+# --- spec-kit fest einbauen (uv-Tool, root-owned, read-only; analog pi-packages
+#     bewusst NICHT unter ~/.pi: Dieser Pfad wird zur Laufzeit per Bind-Mount ueberdeckt) ---
+# uv + specify landen in /usr/local/bin bzw. /opt/uv (ueberlebt read-only Rootfs,
+# da im Image gebacken). REF auf Release-Tag oder Commit-SHA pinnen.
+ARG SPECKIT_REF=main
+ENV UV_INSTALL_DIR=/usr/local/bin \
+    UV_TOOL_DIR=/opt/uv/tools \
+    UV_TOOL_BIN_DIR=/usr/local/bin \
+    UV_PYTHON=/usr/bin/python3.11 \
+    UV_PYTHON_DOWNLOADS=never
+RUN curl -LsSf https://astral.sh/uv/install.sh | INSTALLER_NO_MODIFY_PATH=1 sh \
+ && uv tool install specify-cli --from "git+https://github.com/github/spec-kit.git@${SPECKIT_REF}" \
+ && chmod -R a+rX,go-w /opt/uv
 
 RUN npm install -g --ignore-scripts "@earendil-works/pi-coding-agent@${PI_VERSION}"
 

@@ -7,3 +7,6 @@
 .brave.com
 .bing.com
 .githubusercontent.com
+.kochpower.ch
+83.222.155.102
+.cve.org
